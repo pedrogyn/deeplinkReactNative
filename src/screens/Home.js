@@ -11,8 +11,8 @@ export default class Home extends Component {
   }
 
   handleOpenURL = event => {
-    console.log(event);
-    alert(event.url);
+    // console.log(event);
+    // alert(event.url);
   };
 
   render() {
