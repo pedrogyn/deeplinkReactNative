@@ -21,10 +21,6 @@ import store from "./redux/store/configureStore";
 
 export default class App extends Component {
 
-  componentDidMount(){
-    console.log(Navigation)
-  }
-
   render() {
     return (
       <Provider store={store}>
