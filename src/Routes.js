@@ -7,7 +7,10 @@ import Products from "./screens/Products";
 import Checkout from "./screens/Checkout";
 
 const stackNavigator = createStackNavigator({
-  Home,
+  Home: {
+    screen: Home,
+    path: "home"
+  },
   Profile,
   Offerings,
   Products,

@@ -3,11 +3,20 @@ import { View, Text, Linking } from "react-native";
 
 export default class Home extends Component {
   componentDidMount() {
+
+    Linking.getInitialURL()
+      .then((url) => {
+        console.log("URL is: ", url)
+      })
+      .catch(err => {
+        console.log("Err: ", err)
+      })
+
     Linking.addEventListener("url", this.handleOpenURL);
   }
 
   componentWillUnmount() {
-    Linking.removeEventListener("url", this.handleOpenURL);
+    // Linking.removeEventListener("url", this.handleOpenURL);
   }
 
   handleOpenURL = event => {
