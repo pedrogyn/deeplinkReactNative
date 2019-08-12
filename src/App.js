@@ -10,7 +10,6 @@ import React, { Component } from "react";
 import { Platform, StyleSheet, Text, View } from "react-native";
 
 import { Provider, connect } from "react-redux";
-import { createReduxContainer } from "react-navigation-redux-helpers";
 
 import Routes from "./Routes";
 
@@ -24,7 +23,6 @@ export default class App extends Component {
   render() {
     return (
       <Provider store={store}>
-        {/* <Navigation />  Not work deeplink function*/}
         <Routes />
       </Provider>
     );
