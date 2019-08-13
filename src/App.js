@@ -13,9 +13,6 @@ import { Provider, connect } from "react-redux";
 
 import Routes from "./Routes";
 
-const Root = createReduxContainer(Routes);
-const Navigation = connect(state => ({ state: state.nav }))(Root);
-
 import store from "./redux/store/configureStore";
 
 export default class App extends Component {

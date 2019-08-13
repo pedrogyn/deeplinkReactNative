@@ -1,7 +1,6 @@
-import { combineReducers } from "redux";
+import { combineReducers } from 'redux';
 
-import Home from "./HomeReducer";
-import nav from "./NavReducer";
-const reducers = combineReducers({ Home, nav });
+import Home from './HomeReducer';
+const reducers = combineReducers({ Home });
 
 export default reducers;
