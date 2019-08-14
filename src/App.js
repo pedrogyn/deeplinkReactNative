@@ -7,42 +7,58 @@
  */
 
 import React, { Component } from 'react';
-import { Linking, StyleSheet, Text, View } from 'react-native';
+import { Linking } from 'react-native';
 
-import { Provider, connect } from 'react-redux';
+import { Provider } from 'react-redux';
 
 import Routes from './Routes';
 
 import store from './redux/store/configureStore';
 
+import NavigationService from './services/Navigation';
+import parseDeeplinkData from './services/Deeplink';
+
 export default class App extends Component {
-  async componentDidMount() {
-    setTimeout(() => {
-      Linking.getInitialURL()
-        .then(url => {
-          console.log('URL is: ', url);
-          alert('URL is: ', url);
-        })
-        .catch(err => {
-          console.log('Err: ', err);
-        });
-    }, 3000);
+  componentDidMount() {
+    Linking.getInitialURL()
+      .then(url => {
+        if (url) {
+          this.handleOpenURL(url);
+        }
+      })
+      .catch(err => {
+        console.log('Err: ' + err);
+        alert('Err: ' + err);
+      });
 
-    // Linking.addEventListener("url", this.handleOpenURL);
+    Linking.addEventListener('url', this.handleOpenURL);
   }
 
-  componentWillUnmount() {
-    // Linking.removeEventListener("url", this.handleOpenURL);
+  componentDidUpdate() {
+    console.log('update');
   }
 
-  handleOpenURL = event => {
-    alert(event.url);
+  handleOpenURL = data => {
+    let url = data;
+
+    if (data.url) {
+      url = data.url;
+    }
+    let document = parseDeeplinkData(url);
+    if(document.feature){
+      NavigationService.navigate(document.feature)
+      // set data on reducer deeplink if you need
+    }
   };
 
   render() {
     return (
       <Provider store={store}>
-        <Routes />
+        <Routes
+          ref={navigatorRef => {
+            NavigationService.setTopLevelNavigator(navigatorRef);
+          }}
+        />
       </Provider>
     );
   }
